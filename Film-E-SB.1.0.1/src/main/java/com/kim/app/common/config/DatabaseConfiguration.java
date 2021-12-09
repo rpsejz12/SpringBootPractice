@@ -22,6 +22,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DatabaseConfiguration {
 	@Autowired
 	private ApplicationContext applicationContext;
+	
 	@Bean
 	@ConfigurationProperties(prefix = "spring.datasource.hikari")
 	public HikariConfig hikariConfig() {
@@ -33,6 +34,7 @@ public class DatabaseConfiguration {
 		DataSource dataSource = new HikariDataSource(hikariConfig());
 		return dataSource;
 	}
+	
 	@Bean
 	public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
