@@ -28,6 +28,7 @@ public class DatabaseConfiguration {
 	public HikariConfig hikariConfig() {
 		return new HikariConfig();
 	}
+	
 
 	@Bean
 	public DataSource dataSource() {
@@ -40,8 +41,10 @@ public class DatabaseConfiguration {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
 		sqlSessionFactoryBean.setMapperLocations(applicationContext.getResources("classpath*:mappers/**/*.xml"));
+		sqlSessionFactoryBean.setTypeAliasesPackage("com.kim.app.model.*");
 		return sqlSessionFactoryBean.getObject();
 	}
+	
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
 		return new SqlSessionTemplate(sqlSessionFactory);

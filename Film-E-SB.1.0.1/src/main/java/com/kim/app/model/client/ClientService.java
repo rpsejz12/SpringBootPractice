@@ -1,7 +1,12 @@
 package com.kim.app.model.client;
 
-import java.util.List;
-
 public interface ClientService {
-	public List<ClientVO> c_selectDB();
+	
+	public ClientVO login(ClientVO vo);
+	public ClientVO c_selectDB_one(ClientVO vo);
+	public boolean checkID(String id);
+	public boolean c_insertDB(ClientVO vo);
+	public boolean c_deleteDB(ClientVO vo);
+	public boolean c_updateDB(ClientVO vo);
+
 }

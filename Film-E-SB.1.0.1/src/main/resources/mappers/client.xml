@@ -2,7 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kim.app.model.client.MybatisClientDAO">
-<select id="c_selectDB" resultType="com.kim.app.model.client.ClientVO">
-SELECT * FROM client
-</select>
+
+	<select id="login" resultType="ClientVO">
+		select * from client where id= #{id} and pw = #{pw}
+	</select>
+	
+	<select id="checkID" resultType="ClientVO">
+		select * from client where id= #{id}
+	</select>
+	
+	
+	<insert id="c_insertDB">
+		insert into client values (#{id},#{pw},#{email})
+	</insert>
+	
+	
+	<update id="c_updateDB">
+		update client set pw = #{pw}, email= #{email} where id = #{id}
+	</update>
+	
+	<delete id="c_deleteDB">
+		delete from client where id = #{id}
+	</delete>
+	
+	
+	
 </mapper>
