@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MybatisClientDAO {
 	public ClientVO login(ClientVO vo);
 	public ClientVO checkID(String id);
-	public boolean c_insertDB(ClientVO vo);
-	public boolean c_deleteDB(ClientVO vo);
-	public boolean c_updateDB(ClientVO vo);
+	public int c_insertDB(ClientVO vo);
+	public int c_deleteDB(ClientVO vo);
+	public int c_updateDB(ClientVO vo);
 }

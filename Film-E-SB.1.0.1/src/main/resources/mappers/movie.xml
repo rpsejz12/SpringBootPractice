@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kim.app.model.client.MybatisClientDAO">
+<mapper namespace="com.kim.app.model.movie.MybatisMovieDAO">
 
-	<select id="login" resultType="ClientVO">
+	<select id="login" resultType="MovieVO">
 		select * from client where id= #{id} and pw = #{pw}
 	</select>
 	
-	<select id="checkID" resultType="ClientVO">
+	<select id="checkID" resultType="MovieVO">
 		select * from client where id= #{id}
 	</select>
 	
@@ -22,7 +22,4 @@
 	<delete id="c_deleteDB">
 		delete from client where id = #{id}
 	</delete>
-	
-	
-	
 </mapper>

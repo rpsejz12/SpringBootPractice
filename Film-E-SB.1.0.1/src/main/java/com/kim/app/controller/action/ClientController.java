@@ -36,7 +36,6 @@ public class ClientController {
 				return "redirect:Adminlist.do";
 			} else {
 				return "redirect:Main.do";
-
 			}
 		}
 		else {
@@ -114,8 +113,7 @@ public class ClientController {
 	
 	@RequestMapping("/CselectOne.do")
 	public String c_selectDB_one(Model model, ClientVO vo,@ModelAttribute("sessionID")String id ,HttpServletResponse response) throws IOException{
-		vo.setId(id);
-		if(clientServiceImpl.c_selectDB_one(vo) != null) {
+		if(clientServiceImpl.c_selectDB_one(id) != null) {
 			return "mypage";
 		}
 		else {
