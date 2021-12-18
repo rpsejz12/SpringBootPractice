@@ -29,7 +29,7 @@ public class MovieController {
 	
 	@RequestMapping("/Main.do")
 	public String main(PageVO pVO, Model model, @RequestParam(value="page",defaultValue="1")int page) {
-	
+		logger.info("params = [ " + pVO + "]");
 		pVO.setTable("movie");
 		pVO.setCurPage(page);	//	현재 페이지	
 		pVO.setPerPage(12);		//	페이지 게시물 수
@@ -40,6 +40,8 @@ public class MovieController {
 		model.addAttribute("datas",movieServiceImpl.m_selectDB_all_m(pVO));
 		model.addAttribute("paging",pVO);
 		model.addAttribute("page", page);
+		
+		logger.info("main datas : " + model.getAttribute("datas"));
 		return "main";
 	}
 

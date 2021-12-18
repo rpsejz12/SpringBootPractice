@@ -18,7 +18,7 @@ public class MovieServiceImpl implements MovieService {
 		
 		for(int i = 0; i <datas.size(); i++) {
 			//이건 되는지 잠시 보류
-			if(datas.get(i).getFilename().substring(0,4).equals("http")) {
+			if(!datas.get(i).getFilename().substring(0,4).equals("http")) {
 				datas.get(i).setFilename("img/"+datas.get(i).getFilename());
 			}
 		}
@@ -41,19 +41,19 @@ public class MovieServiceImpl implements MovieService {
 		return null;
 	}
 
-	public Boolean m_insertDB(MovieVO vo) {
+	public boolean m_insertDB(MovieVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
-	public Boolean m_updateDB(MovieVO vo) {
+	public boolean m_updateDB(MovieVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
-	public Boolean m_deleteDB(MovieVO vo) {
+	public boolean m_deleteDB(MovieVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	

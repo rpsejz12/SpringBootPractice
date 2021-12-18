@@ -30,6 +30,7 @@ public class ClientController {
 	
 	@RequestMapping("/Login.do")
 	public String login(Model model, ClientVO vo, HttpServletResponse response) throws IOException{
+		logger.info("params = [ " + vo + "]");
 		if(clientServiceImpl.login(vo) != null) {
 			model.addAttribute("sessionID", vo.getId());
 			if(vo.getId().equals("admin")) { // 관리자 로그인 처리
@@ -70,7 +71,8 @@ public class ClientController {
 	
 	
 	@RequestMapping("/Cinsert.do")
-	public String c_insertDB(ClientVO vo, HttpServletResponse response) throws IOException{		
+	public String c_insertDB(ClientVO vo, HttpServletResponse response) throws IOException{
+		logger.info("params = [ " + vo + "]");
 		if(clientServiceImpl.c_insertDB(vo)) {
 			return "redirect:login.jsp";
 		}
@@ -84,6 +86,7 @@ public class ClientController {
 	
 	@RequestMapping("/Cupdate.do")
 	public String c_updateDB(ClientVO vo, HttpServletResponse response) throws IOException{
+		logger.info("params = [ " + vo + "]");
 		if(clientServiceImpl.c_updateDB(vo)) {
 			return "rediect:CselectOnde.do";
 		}

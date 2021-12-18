@@ -12,7 +12,7 @@ public class PageServiceImpl implements PageService {
 	private MybatisPageDAO pageDAO;
 
 	public PageVO paging(PageVO vo) {
-		vo.setTotal(pageDAO.pagecnt(vo));
+		vo.setTotal(pageDAO.selectAll(vo));
 		
 		
 		vo.setLastPage((vo.getTotal()-1)/vo.getPerPage()+1);	//마지막 페이지 설정	

@@ -12,7 +12,7 @@ public interface MybatisMovieDAO {
 	public ArrayList<MovieVO> selectAll(PageVO vo);
 	public MovieVO selectRand();
 	public MovieVO selectOne(MovieVO vo);
-	public Boolean insert(MovieVO vo);
-	public Boolean delete(MovieVO vo);
-	public Boolean update(MovieVO vo);
+	public int insert(MovieVO vo);
+	public int delete(MovieVO vo);
+	public int update(MovieVO vo);
 }

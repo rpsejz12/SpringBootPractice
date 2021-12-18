@@ -9,7 +9,7 @@ public interface MovieService {
 	public ArrayList<MovieVO> m_selectDB_all(String mtype, String search, PageVO vo);
 	public MovieVO m_selectDB_rand();
 	public MovieVO m_selectDB_one(MovieVO vo);
-	public Boolean m_insertDB(MovieVO vo);
-	public Boolean m_updateDB(MovieVO vo);
-	public Boolean m_deleteDB(MovieVO vo);
+	public boolean m_insertDB(MovieVO vo);
+	public boolean m_updateDB(MovieVO vo);
+	public boolean m_deleteDB(MovieVO vo);
 }

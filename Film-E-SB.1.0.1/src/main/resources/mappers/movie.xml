@@ -8,20 +8,19 @@
 		select * from movie
 	</select>
 
-	<select id="count" resultType="MovieVO">
-		select * from movie
+	<select id="count" resultType="int">
+		select count(*) from movie
 	</select>
 	
 	<select id="selectAllm" resultType="MovieVO">
 		select * from movie order by ratingavg desc limit #{start}, #{perPage}
 	</select>
-
 	<select id="selectAll" resultType="MovieVO">
 		select * from movie where 1 = 1
 		<choose>
-			<when test="mtype == ''">
+			<when test="mtype==null or mtype.equals('')">
 				<choose>
-					<when test="search == ''">
+					<when test="search==null or search.equals('')">
 						and 1 = 1
 					</when>
 					<otherwise>
@@ -29,19 +28,18 @@
 					</otherwise>
 				</choose>
 			</when>
-
 			<otherwise>
 				<choose>
-					<when test="search == ''">
+					<when test="search==null or search.equals('')">
 						and mtype = #{mtype}
 					</when>
 					<otherwise>
-						and mtype = #{mtype} and title LIKE CONCAT(‘%’,
-						#{search}, ‘%’)
+						and mtype = #{mtype} and title LIKE CONCAT(‘%’,	#{search}, ‘%’)
 					</otherwise>
 				</choose>
 			</otherwise>
 		</choose>
+		order by title asc limit #{start}, #{perPage}
 	</select>
 
 
