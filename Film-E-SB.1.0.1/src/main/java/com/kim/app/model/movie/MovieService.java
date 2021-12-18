@@ -1,12 +1,15 @@
 package com.kim.app.model.movie;
 
-public interface MovieService {
-	
-	public MovieVO login(MovieVO vo);
-	public MovieVO c_selectDB_one(MovieVO vo);
-	public boolean checkID(String id);
-	public boolean c_insertDB(MovieVO vo);
-	public boolean c_deleteDB(MovieVO vo);
-	public boolean c_updateDB(MovieVO vo);
+import java.util.ArrayList;
 
+import com.kim.app.model.page.PageVO;
+
+public interface MovieService {
+	public ArrayList<MovieVO> m_selectDB_all_m(PageVO vo);
+	public ArrayList<MovieVO> m_selectDB_all(String mtype, String search, PageVO vo);
+	public MovieVO m_selectDB_rand();
+	public MovieVO m_selectDB_one(MovieVO vo);
+	public Boolean m_insertDB(MovieVO vo);
+	public Boolean m_updateDB(MovieVO vo);
+	public Boolean m_deleteDB(MovieVO vo);
 }

@@ -3,22 +3,66 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kim.app.model.movie.MybatisMovieDAO">
 
-	<select id="login" resultType="MovieVO">
-		select * from client where id= #{id} and pw = #{pw}
+
+	<select id="selectRand" resultType="MovieVO">
+		select * from movie
+	</select>
+
+	<select id="count" resultType="MovieVO">
+		select * from movie
 	</select>
 	
-	<select id="checkID" resultType="MovieVO">
-		select * from client where id= #{id}
+	<select id="selectAllm" resultType="MovieVO">
+		select * from movie order by ratingavg desc limit #{start}, #{perPage}
 	</select>
-	
+
+	<select id="selectAll" resultType="MovieVO">
+		select * from movie where 1 = 1
+		<choose>
+			<when test="mtype == ''">
+				<choose>
+					<when test="search == ''">
+						and 1 = 1
+					</when>
+					<otherwise>
+						and title LIKE CONCAT(‘%’, #{search}, ‘%’)
+					</otherwise>
+				</choose>
+			</when>
+
+			<otherwise>
+				<choose>
+					<when test="search == ''">
+						and mtype = #{mtype}
+					</when>
+					<otherwise>
+						and mtype = #{mtype} and title LIKE CONCAT(‘%’,
+						#{search}, ‘%’)
+					</otherwise>
+				</choose>
+			</otherwise>
+		</choose>
+	</select>
+
+
+
+
+
+
+
+
+
+
+
 	<insert id="c_insertDB">
 		insert into client values (#{id},#{pw},#{email})
 	</insert>
-	
+
 	<update id="c_updateDB">
-		update client set pw = #{pw}, email= #{email} where id = #{id}
+		update client set pw = #{pw}, email= #{email} where
+		id = #{id}
 	</update>
-	
+
 	<delete id="c_deleteDB">
 		delete from client where id = #{id}
 	</delete>

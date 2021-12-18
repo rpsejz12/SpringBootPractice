@@ -11,17 +11,21 @@
 		select * from client where id= #{id}
 	</select>
 	
-	<insert id="c_insertDB">
+	<insert id="insert">
 		insert into client values (#{id},#{pw},#{email})
 	</insert>
 	
-	<update id="c_updateDB">
+	<update id="update">
 		update client set pw = #{pw}, email= #{email} where id = #{id}
 	</update>
 	
-	<delete id="c_deleteDB">
+	<delete id="delete">
 		delete from client where id = #{id}
 	</delete>
+	
+	<update id="rUpdate">
+		update review set id = '(알수없음)' where id = #{id}
+	</update>
 	
 	
 	
