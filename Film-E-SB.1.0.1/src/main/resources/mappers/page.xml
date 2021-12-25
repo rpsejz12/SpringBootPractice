@@ -3,9 +3,9 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kim.app.model.page.MybatisPageDAO">
 	<select id="selectAll" resultType="int">
-		select count(*) from movie where 1 = 1
 		<choose>
 			<when test="table=='movie'">
+					select count(*) from movie where 1 = 1
 				<choose>
 					<when test="mtype==null or mtype.equals('')">
 						<choose>
@@ -31,7 +31,7 @@
 				</choose>
 			</when>	
 			<when test="table='review'">
-				and mpk = #{mpk}
+					select count(*) from review where 1 = 1and mpk = #{mpk}
 			</when>
 		</choose>
 	</select>

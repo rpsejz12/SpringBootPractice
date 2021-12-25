@@ -3,18 +3,10 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kim.app.model.movie.MybatisMovieDAO">
 
-
-	<select id="selectRand" resultType="MovieVO">
-		select * from movie
-	</select>
-
-	<select id="count" resultType="int">
-		select count(*) from movie
-	</select>
-	
 	<select id="selectAllm" resultType="MovieVO">
 		select * from movie order by ratingavg desc limit #{start}, #{perPage}
 	</select>
+
 	<select id="selectAll" resultType="MovieVO">
 		select * from movie where 1 = 1
 		<choose>
@@ -24,7 +16,7 @@
 						and 1 = 1
 					</when>
 					<otherwise>
-						and title LIKE CONCAT(‘%’, #{search}, ‘%’)
+						and title LIKE CONCAT('%', #{search}, '%')
 					</otherwise>
 				</choose>
 			</when>
@@ -34,7 +26,7 @@
 						and mtype = #{mtype}
 					</when>
 					<otherwise>
-						and mtype = #{mtype} and title LIKE CONCAT(‘%’,	#{search}, ‘%’)
+						and mtype = #{mtype} and title LIKE CONCAT('%',	#{search}, '%')
 					</otherwise>
 				</choose>
 			</otherwise>
@@ -42,26 +34,35 @@
 		order by title asc limit #{start}, #{perPage}
 	</select>
 
+	<select id="mpk" resultType="MovieVO">
+		select mpk from movie
+	</select>
+	
+	<select id="selectOne" resultType="MovieVO">
+		select * from movie where mpk = #{mpk}
+	</select>
+	
+	<select id="count" resultType="int">
+		select count(*) from movie
+	</select>
+	
+	<select id="selectRand" resultType="MovieVO">
+		select * from movie
+	</select>
 
-
-
-
-
-
-
-
-
-
-	<insert id="c_insertDB">
-		insert into client values (#{id},#{pw},#{email})
+	<insert id="insert">
+		insert into movie(mpk, title, content, mtype,mdate,filename) values (#{mpk},#{title},#{content},#{mtype},date_format(#{mdate},'%Y-%m-%d'),#{filename})
 	</insert>
 
-	<update id="c_updateDB">
-		update client set pw = #{pw}, email= #{email} where
-		id = #{id}
+	<update id="update">
+		update movie set title  = #{title}, content = #{content}, mtype = #{mtype}, mdate = date_format(#{mdate},'%Y-%m-%d'), filename = #{filename}  where mpk = #{mpk}
 	</update>
 
-	<delete id="c_deleteDB">
-		delete from client where id = #{id}
+	<delete id="delete">
+		delete from movie where mpk = #{mpk}
+	</delete>
+	
+	<delete id="rdelete">
+		update movie set title  = #{title}, content = #{content}, mtype = #{mtype}, mdate = date_format(#{mdate},'%Y-%m-%d'), filename = #{filename}  where mpk = #{mpk}
 	</delete>
 </mapper>

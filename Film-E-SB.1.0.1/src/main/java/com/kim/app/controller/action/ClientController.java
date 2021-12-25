@@ -73,24 +73,24 @@ public class ClientController {
 	@RequestMapping("/Cinsert.do")
 	public String c_insertDB(ClientVO vo, HttpServletResponse response) throws IOException{
 		logger.info("params = [ " + vo + "]");
-		if(clientServiceImpl.c_insertDB(vo)) {
+		try {
+			clientServiceImpl.c_insertDB(vo);
 			return "redirect:login.jsp";
-		}
-		else {
+		}catch(Exception e) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('회원가입 실패!');history.go(-1)</script>");
-			return null;	
+			return null;
 		}
 	}
 	
 	@RequestMapping("/Cupdate.do")
 	public String c_updateDB(ClientVO vo, HttpServletResponse response) throws IOException{
 		logger.info("params = [ " + vo + "]");
-		if(clientServiceImpl.c_updateDB(vo)) {
+		try {
+			clientServiceImpl.c_updateDB(vo);
 			return "rediect:CselectOnde.do";
-		}
-		else {
+		}catch(Exception e) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('회원 정보 변경에 실패하였습니다. 다시 시도해 주세요.');history.go(-1)</script>");
@@ -100,12 +100,12 @@ public class ClientController {
 	
 	@RequestMapping("/Cdelete.do")
 	public String c_deleteDB(ClientVO vo, @ModelAttribute("sessionID")String id, HttpServletResponse response, SessionStatus sessionStatus) throws IOException{
-		vo.setId(id);	
-		if(clientServiceImpl.c_updateDB(vo)) {
+		vo.setId(id);
+		try {		
+			clientServiceImpl.c_updateDB(vo);
 			sessionStatus.setComplete();
 			return "redirect:Main.do";
-		}
-		else {
+		}catch(Exception e) {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>alert('회원 삭제에 실패하였습니다. 다시 시도해 주세요.');history.go(-1)</script>");
@@ -128,6 +128,5 @@ public class ClientController {
 			return null;
 		}
 	}
-	
-	
+
 }

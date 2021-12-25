@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kim.app.model.movie.MovieService;
+import com.kim.app.model.movie.MovieVO;
 import com.kim.app.model.page.PageService;
 import com.kim.app.model.page.PageVO;
 
@@ -44,5 +45,54 @@ public class MovieController {
 		logger.info("main datas : " + model.getAttribute("datas"));
 		return "main";
 	}
-
+	
+	@RequestMapping("/Admin.do")
+	public String admin(MovieVO mVO, Model model) {
+		model.addAttribute("datas",movieServiceImpl.m_selectDB_one(mVO));
+		return "admin";
+	}
+	
+	@RequestMapping("/Adminlist.do")
+	public String adminlist(PageVO pVO, Model model, @RequestParam(value="page",defaultValue="1")int page) {
+		pVO.setTable("movie");
+		pVO.setCurPage(page);    
+	    pVO.setPerPage(12); 
+	    pVO.setPerPageSet(5);
+	    pVO = pageServiceImpl.paging(pVO);
+	    model.addAttribute("datas",movieServiceImpl.m_selectDB_all(pVO));
+		model.addAttribute("paging",pVO);
+		model.addAttribute("page", page);
+		model.addAttribute("search", pVO.getSearch());
+		return "adminlist";
+	}
+	
+	@RequestMapping("/Categories.do")
+	public String categories(PageVO pVO, Model model, @RequestParam(value="page",defaultValue="1")int page) {
+		pVO.setTable("movie");
+		pVO.setCurPage(page);    
+	    pVO.setPerPage(8); 
+	    pVO.setPerPageSet(5);
+	    pVO = pageServiceImpl.paging(pVO);
+	    model.addAttribute("datas",movieServiceImpl.m_selectDB_all(pVO));
+		model.addAttribute("paging",pVO);
+		model.addAttribute("page", page);
+		model.addAttribute("mtype", pVO.getMtype());
+		model.addAttribute("page", pVO.getSearch());
+		return "categories";
+	}
+	
+	@RequestMapping("/Minsert.do")
+	public String minsert() {
+		return null;
+	}
+	
+	@RequestMapping("/Mupdate.do")
+	public String mupdate() {
+		return null;
+	}
+	
+	@RequestMapping("/Mdelete.do")
+	public String mdelete() {
+		return null;
+	}
 }
