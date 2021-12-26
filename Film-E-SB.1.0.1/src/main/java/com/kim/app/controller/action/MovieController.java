@@ -1,5 +1,13 @@
 package com.kim.app.controller.action;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kim.app.model.movie.MovieService;
 import com.kim.app.model.movie.MovieVO;
@@ -48,6 +57,7 @@ public class MovieController {
 	
 	@RequestMapping("/Admin.do")
 	public String admin(MovieVO mVO, Model model) {
+		System.out.println(mVO);
 		model.addAttribute("datas",movieServiceImpl.m_selectDB_one(mVO));
 		return "admin";
 	}
@@ -82,12 +92,41 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/Minsert.do")
-	public String minsert() {
-		return null;
+	public String minsert(HttpServletRequest request, HttpServletResponse response, MovieVO vo, @RequestParam(value="filename")MultipartFile filename) throws IllegalStateException, IOException {
+		
+		PrintWriter out = response.getWriter();
+		String savedir = request.getSession().getServletContext().getRealPath("img");
+		MultipartFile fileupload = filename;
+		
+		if(!fileupload.isEmpty()) {
+			vo.setFilename(UUID.randomUUID().toString()+fileupload.getOriginalFilename());
+			fileupload.transferTo(new File(savedir+"/"+vo.getFilename()));
+		}
+
+		if(movieServiceImpl.m_insertDB(vo)) {
+			return "redirect:Adminlist.do";
+		}
+		else {
+			File file = new File(savedir+"/"+vo.getFilename());
+			if(file.exists()) {
+				file.delete();
+			}
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('게시물 등록 실패');history.go(-1)</script>");
+			return null;
+		}
 	}
 	
 	@RequestMapping("/Mupdate.do")
-	public String mupdate() {
+	public String mupdate(HttpServletRequest request, HttpServletResponse response, MovieVO vo, @RequestParam(value="filename")MultipartFile filename) throws IOException {
+		PrintWriter out = response.getWriter();
+		String savedir = request.getSession().getServletContext().getRealPath("img");
+		MultipartFile fileupload = filename;
+		
+		
+		
+		
+		
 		return null;
 	}
 	

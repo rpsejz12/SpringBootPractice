@@ -12,20 +12,20 @@ import com.kim.app.model.page.PageVO;
 
 @Service("movieServiceImpl")
 public class MovieServiceImpl implements MovieService {
-	
+
 	HashMap<String, String> mpkMap = new HashMap<String, String>(){{
-		   put("액션", "AC");
-		   put("애니메이션", "AN");
-		   put("멜로/로맨스", "RO");
-		   put("드라마", "DR");
-		   put("다큐멘터리", "DC");
+		put("액션", "AC");
+		put("애니메이션", "AN");
+		put("멜로/로맨스", "RO");
+		put("드라마", "DR");
+		put("다큐멘터리", "DC");
 	}};
 	ArrayList<MovieVO> datas=null;
 	MovieVO data = null;
-	
+
 	@Autowired
 	private MybatisMovieDAO movieDAO;
-	
+
 
 	public ArrayList<MovieVO> m_selectDB_all_m(PageVO vo) {
 		datas = movieDAO.selectAllm(vo);
@@ -73,9 +73,13 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	public MovieVO m_selectDB_one(MovieVO vo) {
+		System.out.println(movieDAO.selectOne(vo));
+		System.out.println(vo);
 		data = movieDAO.selectOne(vo);
-		if(!data.getFilename().substring(0,4).equals("http")) {
-			data.setFilename("img/"+data.getFilename());
+		if(data != null) {
+			if(!data.getFilename().substring(0,4).equals("http")) {
+				data.setFilename("img/"+data.getFilename());
+			}
 		}
 		return data;
 	}
@@ -83,11 +87,11 @@ public class MovieServiceImpl implements MovieService {
 	public boolean m_insertDB(MovieVO vo) {
 		String mpkStr = null;      
 		String mpkType = null;
-		
+
 		int mpkInt = 0;
 		int max = 0;
 		boolean isNew = true;
-		
+
 		datas = movieDAO.mpk();
 		for(int i = 0; i <datas.size(); i++) {
 			mpkStr = datas.get(i).getMpk().substring(2);
@@ -97,11 +101,11 @@ public class MovieServiceImpl implements MovieService {
 			}
 			isNew = false;
 		}
-		
+
 		if(isNew) {
 			mpkInt =1001;
 		}
-		
+
 		if(mpkMap.containsKey(vo.getMtype())) {
 			mpkType = mpkMap.get(vo.getMtype());
 		}else {
@@ -111,7 +115,7 @@ public class MovieServiceImpl implements MovieService {
 		max++;
 		mpkStr = mpkType + max;
 		vo.setMpk(mpkStr);
-		
+
 		return movieDAO.insert(vo)>0;
 	}
 
