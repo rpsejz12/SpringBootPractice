@@ -84,7 +84,7 @@ public class MovieServiceImpl implements MovieService {
 		return data;
 	}
 
-	public boolean m_insertDB(MovieVO vo) {
+	public boolean m_insertDB(MovieMultiVO vo) {
 		String mpkStr = null;      
 		String mpkType = null;
 
@@ -119,12 +119,12 @@ public class MovieServiceImpl implements MovieService {
 		return movieDAO.insert(vo)>0;
 	}
 
-	public boolean m_updateDB(MovieVO vo) {
+	public boolean m_updateDB(MovieMultiVO vo) {
 		return movieDAO.update(vo)>0;
 	}
 
 	@Transactional
-	public boolean m_deleteDB(MovieVO vo) {
+	public boolean m_deleteDB(MovieMultiVO vo) {
 		movieDAO.delete(vo);
 		movieDAO.rdelete(vo);
 		return true;

@@ -51,7 +51,7 @@
 	</select>
 
 	<insert id="insert">
-		insert into movie(mpk, title, content, mtype,mdate,filename) values (#{mpk},#{title},#{content},#{mtype},date_format(#{mdate},'%Y-%m-%d'),#{filename})
+		insert into movie(mpk, title, content, mtype,mdate,filename) values (#{mpk},#{title},#{content},#{mtype},date_format(#{mdate},'%Y-%m-%d'),#{fileupload})
 	</insert>
 
 	<update id="update">

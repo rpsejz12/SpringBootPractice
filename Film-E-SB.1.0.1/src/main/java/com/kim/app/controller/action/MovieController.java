@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kim.app.model.movie.MovieMultiVO;
 import com.kim.app.model.movie.MovieService;
 import com.kim.app.model.movie.MovieVO;
 import com.kim.app.model.page.PageService;
@@ -92,22 +93,23 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/Minsert.do")
-	public String minsert(HttpServletRequest request, HttpServletResponse response, MovieVO vo, @RequestParam(value="filename")MultipartFile filename) throws IllegalStateException, IOException {
+	public String minsert(HttpServletRequest request, HttpServletResponse response, MovieMultiVO vo) throws IllegalStateException, IOException {
 		
 		PrintWriter out = response.getWriter();
 		String savedir = request.getSession().getServletContext().getRealPath("img");
-		MultipartFile fileupload = filename;
+		
+		MultipartFile fileupload = vo.getFilename();
 		
 		if(!fileupload.isEmpty()) {
-			vo.setFilename(UUID.randomUUID().toString()+fileupload.getOriginalFilename());
-			fileupload.transferTo(new File(savedir+"/"+vo.getFilename()));
+			vo.setFileupload(UUID.randomUUID().toString().substring(0,7)+fileupload.getOriginalFilename());
+			fileupload.transferTo(new File(savedir+"/"+vo.getFileupload()));
 		}
 
 		if(movieServiceImpl.m_insertDB(vo)) {
 			return "redirect:Adminlist.do";
 		}
 		else {
-			File file = new File(savedir+"/"+vo.getFilename());
+			File file = new File(savedir+"/"+vo.getFileupload());
 			if(file.exists()) {
 				file.delete();
 			}
