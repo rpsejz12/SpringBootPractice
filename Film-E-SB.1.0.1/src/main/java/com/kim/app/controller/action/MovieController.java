@@ -130,13 +130,13 @@ public class MovieController {
 		
 		MovieVO mvo = new MovieVO();
 		mvo.setMpk(vo.getMpk());
+		mvo = (movieServiceImpl.m_selectDB_one(mvo));
+		mvo.setFilename(mvo.getFilename().replace("img/", ""));
 	
 		if(!fileupload.isEmpty()) {
 			vo.setFileupload(UUID.randomUUID().toString().substring(0,7)+fileupload.getOriginalFilename());
 			fileupload.transferTo(new File(savedir+"/"+vo.getFileupload()));
 		}else {
-			mvo = (movieServiceImpl.m_selectDB_one(mvo));
-			mvo.setFilename(mvo.getFilename().replace("img/", ""));
 			vo.setFileupload(mvo.getFilename());
 		}
 
@@ -164,6 +164,7 @@ public class MovieController {
 		PrintWriter out = response.getWriter();
 		String savedir = request.getSession().getServletContext().getRealPath("img");
 		vo = movieServiceImpl.m_selectDB_one(vo);
+		vo.setFilename(vo.getFilename().replace("img/", ""));
 		try {
 			movieServiceImpl.m_deleteDB(vo);
 			File file = new File(savedir+"/"+vo.getFilename());
