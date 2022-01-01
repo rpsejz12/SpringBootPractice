@@ -3,6 +3,7 @@ package com.kim.app.controller.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -120,20 +121,61 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/Mupdate.do")
-	public String mupdate(HttpServletRequest request, HttpServletResponse response, MovieVO vo, @RequestParam(value="filename")MultipartFile filename) throws IOException {
+	public String mupdate(HttpServletRequest request, HttpServletResponse response, MovieMultiVO vo) throws IOException {
 		PrintWriter out = response.getWriter();
 		String savedir = request.getSession().getServletContext().getRealPath("img");
-		MultipartFile fileupload = filename;
+		
+		MultipartFile fileupload = vo.getFilename();
 		
 		
-		
-		
-		
-		return null;
+		MovieVO mvo = new MovieVO();
+		mvo.setMpk(vo.getMpk());
+	
+		if(!fileupload.isEmpty()) {
+			vo.setFileupload(UUID.randomUUID().toString().substring(0,7)+fileupload.getOriginalFilename());
+			fileupload.transferTo(new File(savedir+"/"+vo.getFileupload()));
+		}else {
+			mvo = (movieServiceImpl.m_selectDB_one(mvo));
+			mvo.setFilename(mvo.getFilename().replace("img/", ""));
+			vo.setFileupload(mvo.getFilename());
+		}
+
+		if(movieServiceImpl.m_updateDB(vo)) {
+			if(!fileupload.isEmpty()) {
+				File file = new File(savedir+"/"+mvo.getFilename());
+				if(file.exists()) {
+					file.delete();
+				}
+			}
+			return "redirect:Adminlist.do";
+		}else {
+			File file = new File(savedir+"/"+vo.getFileupload());
+			if(file.exists()) {
+				file.delete();
+			}
+			response.setContentType("text/html; charset=UTF-8");      
+			out.println("<script>alert('수정 실패');history.go(-1)</script>"); // 사진 수정 실패 시 alert창
+			return null;
+		}
 	}
 	
 	@RequestMapping("/Mdelete.do")
-	public String mdelete() {
-		return null;
+	public String mdelete(HttpServletRequest request, HttpServletResponse response, MovieVO vo) throws IOException {
+		PrintWriter out = response.getWriter();
+		String savedir = request.getSession().getServletContext().getRealPath("img");
+		vo = movieServiceImpl.m_selectDB_one(vo);
+		try {
+			movieServiceImpl.m_deleteDB(vo);
+			File file = new File(savedir+"/"+vo.getFilename());
+			if(file.exists()) {
+				file.delete();
+			}
+			return "redirect:Adminlist.do";
+		}catch(Exception e) {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('사진 삭제 실패!');history.go(-1)</script>"); //게시물 삭제 실패 시 alert
+			return null;
+		}
+
 	}
 }

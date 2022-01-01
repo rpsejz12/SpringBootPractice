@@ -11,5 +11,5 @@ public interface MovieService {
 	public MovieVO m_selectDB_one(MovieVO vo);
 	public boolean m_insertDB(MovieMultiVO vo);
 	public boolean m_updateDB(MovieMultiVO vo);
-	public boolean m_deleteDB(MovieMultiVO vo);
+	public boolean m_deleteDB(MovieVO vo);
 }

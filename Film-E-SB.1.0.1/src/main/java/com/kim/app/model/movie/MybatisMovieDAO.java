@@ -18,7 +18,7 @@ public interface MybatisMovieDAO {
 	public MovieVO selectOne(MovieVO vo);
 	public int count();
 	public int insert(MovieMultiVO vo);
-	public int delete(MovieMultiVO vo);
+	public int delete(MovieVO vo);
 	public int update(MovieMultiVO vo);
-	public int rdelete(MovieMultiVO vo);
+	public int rdelete(MovieVO vo);
 }

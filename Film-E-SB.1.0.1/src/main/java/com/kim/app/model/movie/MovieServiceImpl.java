@@ -124,7 +124,7 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Transactional
-	public boolean m_deleteDB(MovieMultiVO vo) {
+	public boolean m_deleteDB(MovieVO vo) {
 		movieDAO.delete(vo);
 		movieDAO.rdelete(vo);
 		return true;

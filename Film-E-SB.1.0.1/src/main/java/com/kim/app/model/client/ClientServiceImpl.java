@@ -21,13 +21,14 @@ public class ClientServiceImpl implements ClientService {
 	}
 	public boolean c_insertDB(ClientVO vo) {
 		return clientDAO.insert(vo)>0;
-	}
+	}	
 	@Transactional
 	public boolean c_deleteDB(ClientVO vo) {
 		clientDAO.delete(vo);
 		clientDAO.rUpdate(vo);
 		return true;
 	}
+	
 	public boolean c_updateDB(ClientVO vo) {
 		return clientDAO.update(vo)>0;
 	};

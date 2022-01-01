@@ -55,7 +55,7 @@
 	</insert>
 
 	<update id="update">
-		update movie set title  = #{title}, content = #{content}, mtype = #{mtype}, mdate = date_format(#{mdate},'%Y-%m-%d'), filename = #{filename}  where mpk = #{mpk}
+		update movie set title  = #{title}, content = #{content}, mtype = #{mtype}, mdate = date_format(#{mdate},'%Y-%m-%d'), filename = #{fileupload}  where mpk = #{mpk}
 	</update>
 
 	<delete id="delete">
