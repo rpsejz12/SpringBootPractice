@@ -31,7 +31,7 @@
 				</choose>
 			</when>	
 			<when test="table='review'">
-					select count(*) from review where 1 = 1and mpk = #{mpk}
+					select count(*) from review where 1 = 1 and mpk = #{mpk}
 			</when>
 		</choose>
 	</select>

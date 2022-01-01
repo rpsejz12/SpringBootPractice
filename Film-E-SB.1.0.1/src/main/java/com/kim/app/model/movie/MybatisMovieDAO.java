@@ -10,8 +10,6 @@ import com.kim.app.model.page.PageVO;
 public interface MybatisMovieDAO {
 	
 	public ArrayList<MovieVO> selectAllm(PageVO vo);
-	
-	
 	public ArrayList<MovieVO> selectAll(PageVO vo);
 	public ArrayList<MovieVO> selectRand();	
 	public ArrayList<MovieVO> mpk();	

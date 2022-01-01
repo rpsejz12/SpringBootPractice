@@ -102,7 +102,7 @@ public class ClientController {
 	public String c_deleteDB(ClientVO vo, @ModelAttribute("sessionID")String id, HttpServletResponse response, SessionStatus sessionStatus) throws IOException{
 		vo.setId(id);
 		try {		
-			clientServiceImpl.c_updateDB(vo);
+			clientServiceImpl.c_deleteDB(vo);
 			sessionStatus.setComplete();
 			return "redirect:Main.do";
 		}catch(Exception e) {

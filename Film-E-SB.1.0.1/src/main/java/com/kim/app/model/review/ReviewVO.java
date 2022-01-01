@@ -4,31 +4,63 @@ import org.apache.ibatis.type.Alias;
 
 @Alias("ReviewVO")
 public class ReviewVO {
+	
+	private int rpk;
+	private String cmt;
 	private String id;
-	private String pw;
-	private String email;
+	private String mpk;
+	private String rdate;
+	private double rating;
+	private double ratingavg;
+	public int getRpk() {
+		return rpk;
+	}
+	public void setRpk(int rpk) {
+		this.rpk = rpk;
+	}
+	public String getCmt() {
+		return cmt;
+	}
+	public void setCmt(String cmt) {
+		this.cmt = cmt;
+	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getPw() {
-		return pw;
+	public String getMpk() {
+		return mpk;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setMpk(String mpk) {
+		this.mpk = mpk;
 	}
-	public String getEmail() {
-		return email;
+	public String getRdate() {
+		return rdate;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRdate(String rdate) {
+		this.rdate = rdate;
+	}
+	public double getRating() {
+		return rating;
+	}
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+	public double getRatingavg() {
+		return ratingavg;
+	}
+	public void setRatingavg(double ratingavg) {
+		this.ratingavg = ratingavg;
 	}
 	@Override
 	public String toString() {
-		return "ClientVO [id=" + id + ", pw=" + pw + ", email=" + email + "]";
+		return "ReviewVO [rpk=" + rpk + ", cmt=" + cmt + ", id=" + id + ", mpk=" + mpk + ", rdate=" + rdate
+				+ ", rating=" + rating + ", ratingavg=" + ratingavg + "]";
 	}
+	
+	
 	
 	
 }

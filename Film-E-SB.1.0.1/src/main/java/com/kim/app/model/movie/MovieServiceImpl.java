@@ -52,6 +52,7 @@ public class MovieServiceImpl implements MovieService {
 		int temp = 0;
 		int cnt = 0;
 		temp = rand.nextInt(movieDAO.count());
+		
 		data = new MovieVO();
 		datas = movieDAO.selectRand();
 		for(int i = 0; i <datas.size(); i++) {
@@ -63,8 +64,11 @@ public class MovieServiceImpl implements MovieService {
 				data.setMtype(datas.get(i).getMtype());
 				data.setMdate(datas.get(i).getMdate());	
 				data.setRatingavg(datas.get(i).getRatingavg());
+				
 				if(!datas.get(i).getFilename().substring(0,4).equals("http")) {
 					data.setFilename("img/"+datas.get(i).getFilename());
+				}else {
+					data.setFilename(datas.get(i).getFilename());
 				}
 			}
 			cnt++;

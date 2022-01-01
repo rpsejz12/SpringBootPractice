@@ -1,12 +1,14 @@
 package com.kim.app.model.review;
 
+import java.util.ArrayList;
+
+import com.kim.app.model.page.PageVO;
+
 public interface ReviewService {
 	
-	public ReviewVO login(ReviewVO vo);
-	public ReviewVO c_selectDB_one(ReviewVO vo);
-	public boolean checkID(String id);
-	public boolean c_insertDB(ReviewVO vo);
-	public boolean c_deleteDB(ReviewVO vo);
-	public boolean c_updateDB(ReviewVO vo);
+	public ArrayList<ReviewVO> r_selectDB_all(PageVO vo);
+	public ReviewVO r_selectDB_one(ReviewVO vo);
+	public boolean r_insertDB(ReviewVO vo);
+	public boolean r_deleteDB(ReviewVO vo);
 
 }

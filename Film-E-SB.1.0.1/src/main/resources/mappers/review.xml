@@ -3,26 +3,25 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kim.app.model.review.MybatisReviewDAO">
 
-	<select id="login" resultType="ReviewVO">
-		select * from client where id= #{id} and pw = #{pw}
+	<select id="rSelectAll" resultType="ReviewVO">
+		select rpk, cmt, id, mpk, rating, date_format(rdate,'%Y-%m-%d %H:%i') rdate from review where mpk =#{mpk} order by rdate desc limit #{start}, #{perPage}
+	</select>
+	<select id="rSelectOne" resultType="ReviewVO">
+		select rpk, cmt, id, mpk, rating, date_format(rdate,'%Y-%m-%d %H:%i') rdate from review where id = #{id} and mpk = #{mpk}
+	</select>
+	<select id="starAVG" resultType="double">
+		select avg(rating) from review where mpk = #{mpk}
 	</select>
 	
-	<select id="checkID" resultType="ReviewVO">
-		select * from client where id= #{id}
-	</select>
-	
-	<insert id="c_insertDB">
-		insert into client values (#{id},#{pw},#{email})
+	<insert id="insert">
+		insert into review (cmt, id, mpk, rdate, rating) values(#{cmt}, #{id}, #{mpk}, now(),#{rating})
 	</insert>
 	
-	<update id="c_updateDB">
-		update client set pw = #{pw}, email= #{email} where id = #{id}
+	<update id="mUpdate">
+		update movie set ratingavg=#{ratingavg} where mpk=#{mpk}
 	</update>
 	
-	<delete id="c_deleteDB">
-		delete from client where id = #{id}
+	<delete id="delete">
+		delete from review where rpk = #{rpk}
 	</delete>
-	
-	
-	
 </mapper>
